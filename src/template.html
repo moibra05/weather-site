@@ -7,8 +7,11 @@
     <title>Document</title>
   </head>
   <body>
-    <label for="location"></label>
-    <input type="text" name="location" id="location" />
-    <button type="submit" id="search-button">Search</button>
+    <form novalidate>
+      <label for="location"></label>
+      <input required type="text" name="location" id="location" />
+      <button type="submit" id="search-button">Search</button>
+      <span class="error" aria-live="polite"></span>
+    </form>
   </body>
 </html>
