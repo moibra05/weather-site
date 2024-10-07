@@ -7,14 +7,22 @@
     <title>Document</title>
   </head>
   <body>
-    <form novalidate>
-      <label for="location"></label>
-      <input required type="text" name="location" id="location" />
-      <button type="submit" id="search-button">Search</button>
-      <span class="error" aria-live="polite"></span>
-    </form>
-    <img src="./assets/123.png" alt="weather-icon" class="weather-icon" />
-    <div class="location-text">Location</div>
+    <div>
+      <form novalidate>
+        <label for="location"></label>
+        <div class="search">
+          <input required type="text" name="location" id="location" />
+          <button type="submit" id="search-button">
+            <img
+            style="width: 40px; padding: 5px;"
+            src="https://static-00.iconduck.com/assets.00/search-icon-2048x2048-cmujl7en.png"
+            alt="">
+          </button>
+        </div>
+      </form>
+      <img src="./assets/123.png" alt="weather-icon" class="weather-icon" />
+      <div class="location-text"></div>
+    </div>
     <main>
       <div class="hourly-conditions">
         <div class="condition">

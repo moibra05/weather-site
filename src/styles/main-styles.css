@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#search-button {
+  border-radius: 100%;
+  border: none;
+  padding: 10px;
+  transition: 200ms;
+}
+
+#search-button:hover {
+  cursor: pointer;
+  background-color: rgba(128, 128, 128, 0.565);
+}
+
+.search {
+  display: flex;
+  gap: 10px;
+  width: 100vw;
+  justify-content: center;
+}
+
+#location {
+  width: 30%;
+  padding: 20px;
+  font-size: 2rem;
+}

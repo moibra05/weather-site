@@ -7,21 +7,24 @@ export const apiHandler = (function (){
     return locationParts.join("%20");
   }
 
-  function conditionsConstructor(section) {
-    if(section == "currentConditions"){
-
-    }
+  function conditionsConstructor(data, day) {
     return {
-      temperature: data.currentConditions.temp,
-      feelslike: data.currentConditions.feelslike,
-      preciptype: data.currentConditions.preciptype,
-      conditions: data.currentConditions.conditions,
-      sunrise: data.currentConditions.sunrise,
-      sunset: data.currentConditions.sunset,
+      temperature: data.days.temp,
+      feelslike: data.days[day].feelslike,
+      preciptype: data.days[day].preciptype,
+      conditions: data.days[day].conditions,
+      sunrise: data.days[day].sunrise,
+      sunset: data.days[day].sunset,
     }
   }
 
   function extractWeatherData(data) {
+    const days = [];
+
+    for (let day = 0; day < 15; day++) {
+      days.push(conditionsConstructor(data, day))
+    } 
+
     return {
       address: data.resolvedAddress,
       currentConditions: {
@@ -31,7 +34,8 @@ export const apiHandler = (function (){
         conditions: data.currentConditions.conditions,
         sunrise: data.currentConditions.sunrise,
         sunset: data.currentConditions.sunset,
-      }
+      },
+      days
     }
   }
 
@@ -39,10 +43,8 @@ export const apiHandler = (function (){
     try {
       const url = processUrl(location);
       const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${url}?unitGroup=metric&include=current&key=MUA2C8Z3Z62WNA7QZU3KXWHN4&contentType=json`, {mode: 'cors'});
-      
-      
       const result = await response.json();
-      const formattedResult = result;
+      const formattedResult = extractWeatherData(result);
       return formattedResult;
     } catch (error) {
         domHandler.showError();

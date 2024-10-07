@@ -2,18 +2,26 @@ import { apiHandler } from "./apiMethods";
 
 export const domHandler = (function(){
   const locationInput = document.querySelector("#location");
+  const locationText = document.querySelector(".location-text");
   const locationRequest = document.querySelector("form");
-  const errorText = document.querySelector(".error");
 
   function changeWeatherText(weatherData) {
-    console.log(weatherData);
+    console.log(weatherData)
+    locationText.textContent = weatherData.address;
   }
 
   function showError() {
     if(locationInput.validity.valid){
-      errorText.textContent = "Location was not found!";
-    } else {
-      errorText.textContent = "";
+      locationText.textContent = "Location was not found!";
+    }
+  }
+
+  async function displayWeather(location) {
+    try {
+      const data = await apiHandler.getWeatherData(location);
+      changeWeatherText(data);
+    } catch(e) {
+      showError();
     }
   }
 
@@ -21,11 +29,9 @@ export const domHandler = (function(){
     event.preventDefault();
 
     if(!locationInput.validity.valueMissing){
-      errorText.textContent = "";
       const location = locationInput.value;
-      const weatherData = apiHandler.getWeatherData(location);
-      weatherData.then(result => changeWeatherText(result));
-      console.log("Loading...");
+      displayWeather(location);
+      locationText.textContent = "Loading...";
     } else {
       showError();
     }
