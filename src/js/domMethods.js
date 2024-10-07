@@ -25,6 +25,7 @@ export const domHandler = (function(){
       const location = locationInput.value;
       const weatherData = apiHandler.getWeatherData(location);
       weatherData.then(result => changeWeatherText(result));
+      console.log("Loading...");
     } else {
       showError();
     }

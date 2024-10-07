@@ -7,11 +7,27 @@ export const apiHandler = (function (){
     return locationParts.join("%20");
   }
 
+  function conditionsConstructor(section) {
+    if(section == "currentConditions"){
+
+    }
+    return {
+      temperature: data.currentConditions.temp,
+      feelslike: data.currentConditions.feelslike,
+      preciptype: data.currentConditions.preciptype,
+      conditions: data.currentConditions.conditions,
+      sunrise: data.currentConditions.sunrise,
+      sunset: data.currentConditions.sunset,
+    }
+  }
+
   function extractWeatherData(data) {
     return {
-      address: data.address,
+      address: data.resolvedAddress,
       currentConditions: {
         temperature: data.currentConditions.temp,
+        feelslike: data.currentConditions.feelslike,
+        preciptype: data.currentConditions.preciptype,
         conditions: data.currentConditions.conditions,
         sunrise: data.currentConditions.sunrise,
         sunset: data.currentConditions.sunset,
@@ -26,7 +42,7 @@ export const apiHandler = (function (){
       
       
       const result = await response.json();
-      const formattedResult = extractWeatherData(result);
+      const formattedResult = result;
       return formattedResult;
     } catch (error) {
         domHandler.showError();
